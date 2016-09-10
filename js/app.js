@@ -19,22 +19,31 @@
 	// Remenber add '' outside strings, or venue will shown as undefined in the object
 
 	var POIs = [Watpo, Millennium, Sheraton, Peninsula, MandarinOriental]
+	var POIsFourQuareData = [];
 
+	var CLIENT_ID = 'VWK3IX5UASRRQTY0NC12DWUZGFJHVQOUNFQ2HW42VVC4UQ0N';
+    var	CLIENT_SECRET = 'XACMVAXEIZR3PVG0ACMWSOD0ULGBE5DBMLXQDLTMSEF1LYCU';
+    var version = '20160908';
+    var base_url = "https://api.foursquare.com/v2/venues";
 	POIs.forEach(function(POI){
-		var url = ' "https://api.foursquare.com/v2/venues/" + POI.fourSquareID + "?client_id=VWK3IX5UASRRQTY0NC12DWUZGFJHVQOUNFQ2HW42VVC4UQ0N&client_secret=XACMVAXEIZR3PVG0ACMWSOD0ULGBE5DBMLXQDLTMSEF1LYCU&v=20160908&callback=foursquareData" ';
+		var venue_id = POI.fourSquareID,
+			url = base_url + '/' + venue_id;
+
 		$.ajax({
-        url: url,
-        method: 'GET',
-        dataType: 'jsonp'
-    	}).done(function(fourQuareData) {
-        console.log(fourQuareData);
-        articals = data.response.docs;
-       	})
-	});
+      		url: url,
+      		dataType: 'json',
+      		data: {
+        		client_id: CLIENT_ID,
+        		client_secret: CLIENT_SECRET,
+        		v: version,
+        		async: true
+      			}
+      		}).done(function(fourQuareData) {
+      		   console.log(fourQuareData);
+      		   POIsFourQuareData.push(fourQuareData);
+        	});
+    });
 
-
-
-    
 
 
 //VierModel
