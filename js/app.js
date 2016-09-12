@@ -18,7 +18,7 @@
 
 	// Remenber add '' outside strings, or venue will shown as undefined in the object
 
-	var POIs = [Watpo, Millennium, Sheraton, Peninsula, MandarinOriental]
+	var POIs = [Watpo, Millennium, Sheraton, Peninsula, MandarinOriental];
 	var POIsFourQuareData = [];
 
 	var CLIENT_ID = 'VWK3IX5UASRRQTY0NC12DWUZGFJHVQOUNFQ2HW42VVC4UQ0N';
@@ -44,28 +44,61 @@
         	});
     });
 
+//InitMap
 
+var initMap = function() {
+  window.map = new google.maps.Map(document.getElementById('map'), {
+	center: {lat: 13.737873, lng: 100.516890},
+    scrollwheel: true,
+    zoom: 14  	
+ });
 
-//VierModel
+	google.maps.event.addDomListener(window, "resize", function() {
+ 	var center = map.getCenter();
+ 	google.maps.event.trigger(map, "resize");
+ 	map.setCenter(center); 
+	});
 /*
+		POIs.forEach(function(POI){
+    			var marker = new google.maps.Marker({
+    				position: POI.location,
+    				animation: google.maps.Animation.DROP,
+    				title:"Hello World!"
+					});
+    			marker.setMap(map);
+    		});
+*/
+};
 
-	var ViewModel01 = {
+
+		POIs.forEach(function(POI){
+    			var marker = new google.maps.Marker({
+    				position: POI.location,
+    				animation: google.maps.Animation.DROP,
+    				title:"Hello World!"
+					});
+    			marker.setMap(map);
+    		});
+
+
+// VIewModel
+// ViewModel is a function, not a object
+
+var ViewModel = function(){
     	//Ko.observable is updating data change in VM to V 
-    	personName: ko.observable('Bob'),
-    	personAge: 123
-		
-   		var myObservableArray = ko.observableArray();    // Initially an empty array
-		myObservableArray.push('Watpo');            // Adds the value and notifies observers
+    	var POIsArray =  ko.observableArray(POIs);
+    	var foursquareArray = ko.observableArray(POIsFourQuareData);
 
-		};
+
+	};
 
 
 	// Activate ViewModel, Search binding in map, Can creat multi ViewModels for different ELement
-	ko.applyBindings(ViewModel01. document.getElementById('map'));
+	ko.applyBindings(ViewModel);
 
 	//Read: myViewModel.personName()
 	//Write: myViewModel.personName('Mary').personAge(50)
-*/
+
 
 
 

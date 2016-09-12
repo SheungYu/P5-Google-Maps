@@ -16,43 +16,70 @@
     <div class="container-fluid">
       
       <div id="map"></div>
-      
-      <script>
-        function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 13.727472, lng: 100.570405},
-          scrollwheel: true,
-          zoom: 14
-        });
-
-        
-        // Recenter while resize, via http://stackoverflow.com/questions/18444161/google-maps-responsive-resize
-        google.maps.event.addDomListener(window, "resize", function() {
- 		var center = map.getCenter();
- 		google.maps.event.trigger(map, "resize");
- 		map.setCenter(center); 
-		});
 
 
-        // Create a marker and set its position.
-        var myLatLng = {lat: 13.727472, lng: 100.570405};
-        var marker = new google.maps.Marker({
-          map: map,
-          position: myLatLng,
-          title: 'Hello World!'
-        });
-        }
-      </script>
+    	<nav class="navbar navbar-inverse navbar-fixed-top">
+			<form class="navbar-form navbar-right">
+            	<div class="form-group">
+              		<input type="text" class="search-area" placeholder="search for shortlist">
+            	</div>
+
+          		<button type="submit" class="btn btn-success">Go</button>
+          	</form>      	
+    	</nav>
+
+        <div class="col-sm-4">
+          <div class="list-group">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <a href="#" class="list-group-item active">
+                <h4 class="list-group-item-heading">List group item heading</h4>
+                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                </a>
+              </li>
+            
+              <li class="list-group-item">
+                <a href="#" class="list-group-item active">
+                <h4 class="list-group-item-heading">List group item heading</h4>
+                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                </a>
+              </li>
+
+              <li class="list-group-item">
+                <a href="#" class="list-group-item active">
+                <h4 class="list-group-item-heading">List group item heading</h4>
+                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                </a>
+              </li>
+
+              <li class="list-group-item">
+                <a href="#" class="list-group-item active">
+                <h4 class="list-group-item-heading">List group item heading</h4>
+                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                </a>
+              </li>
+
+              <li class="list-group-item">
+                <a href="#" class="list-group-item active">
+                <h4 class="list-group-item-heading">List group item heading</h4>
+                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                </a>
+              </li>
+
+          </div>
+        </div>
 
     </div>
 
 
-    <div><p data-bind='text: locationPOI.venue'></p></div>
+
+
 
 
     <script type="text/javascript" src="js/knockout-3.4.0.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtSPeVBK6jrwe1n0FAnbQCSwU7YU3mlYI&callback=initMap"async defer></script>
+<!--Cause initMap is now set in the ViewModel Function, thus shall not called back by this any longer-->
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBtSPeVBK6jrwe1n0FAnbQCSwU7YU3mlYI&callback=initMap" async defer></script>
   </body>
 </html>

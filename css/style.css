@@ -1,12 +1,11 @@
 html, body {
   height: 100%;
   margin: 0;
-  padding: 0;
+  padding: 0px;
 }
 
 .container-fluid {
   padding-left: 0px;
-
 }
 
 #map {
@@ -14,3 +13,19 @@ html, body {
   width: 100vw;
 }
 
+
+.list-group {
+  padding-left: 2px;
+  padding-right: 2px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    /* Hover the dom on the map (within the screen) */
+  max-width: 300px;
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+}
+
+@media (max-width: 900px) {
+  .list-group {
+    visibility: hidden
+}}
