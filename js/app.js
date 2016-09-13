@@ -20,6 +20,7 @@
 
 	var POIs = [Watpo, Millennium, Sheraton, Peninsula, MandarinOriental];
 	var POIsFourQuareData = [];
+	var formatedLocations = [];
 
 	var CLIENT_ID = 'VWK3IX5UASRRQTY0NC12DWUZGFJHVQOUNFQ2HW42VVC4UQ0N';
     var	CLIENT_SECRET = 'XACMVAXEIZR3PVG0ACMWSOD0ULGBE5DBMLXQDLTMSEF1LYCU';
@@ -39,55 +40,70 @@
         		async: true
       			}
       		}).done(function(fourQuareData) {
-      		   console.log(fourQuareData);
-      		   POIsFourQuareData.push(fourQuareData);
+      		   	var FourQ = {};
+    			FourQ.name = fourQuareData.response.venue.name;
+    			FourQ.url = fourQuareData.response.venue.shortUrl;
+    			FourQ.Location = {};
+    			FourQ.Location.lat = fourQuareData.response.venue.location.labeledLatLngs[0].lat;
+    			FourQ.Location.lng = fourQuareData.response.venue.location.labeledLatLngs[0].lng;
+				POIsFourQuareData.push(fourQuareData);
+				formatedLocations.push(FourQ);
         	});
     });
+
+    console.log(formatedLocations);
 
 //InitMap
 
 var initMap = function() {
-  window.map = new google.maps.Map(document.getElementById('map'), {
-	center: {lat: 13.737873, lng: 100.516890},
-    scrollwheel: true,
-    zoom: 14  	
- });
+  	var map = new google.maps.Map(document.getElementById('map'), {
+		center: {lat: 13.737873, lng: 100.516890},
+    	scrollwheel: true,
+    	zoom: 14  	
+ 		});
 
-	google.maps.event.addDomListener(window, "resize", function() {
- 	var center = map.getCenter();
- 	google.maps.event.trigger(map, "resize");
- 	map.setCenter(center); 
-	});
-/*
-		POIs.forEach(function(POI){
-    			var marker = new google.maps.Marker({
-    				position: POI.location,
-    				animation: google.maps.Animation.DROP,
-    				title:"Hello World!"
-					});
-    			marker.setMap(map);
-    		});
-*/
+ 
+		google.maps.event.addDomListener(window, "resize", function() {
+ 		var center = map.getCenter();
+ 		google.maps.event.trigger(map, "resize");
+ 		map.setCenter(center); 
+		});
+
+		formatedLocations.forEach(function(loca){
+		var marker = new google.maps.Marker({
+    		position: loca.Location,
+    		animation: google.maps.Animation.DROP,
+			});
+		marker.setMap(map);
+    });
+
 };
 
 
-		POIs.forEach(function(POI){
-    			var marker = new google.maps.Marker({
-    				position: POI.location,
-    				animation: google.maps.Animation.DROP,
-    				title:"Hello World!"
-					});
-    			marker.setMap(map);
-    		});
 
-
+/*
 // VIewModel
 // ViewModel is a function, not a object
 
 var ViewModel = function(){
     	//Ko.observable is updating data change in VM to V 
-    	var POIsArray =  ko.observableArray(POIs);
-    	var foursquareArray = ko.observableArray(POIsFourQuareData);
+
+    	var self = this
+
+
+// Tested by console.log that can creat observableArray by pass in name of Array.
+    	var BKKPOI =  ko.observableArray(formatedLocation);
+
+    	self.SearchContent = ko.observable('');
+
+//Ret http://stackoverflow.com/questions/29667134/knockout-search-in-observable-array    	
+
+		self.searchResults = ko.computed(function() {
+			var query = self.SearchContent;
+			return POIs.filter(function(i) {
+      			return i.venue.toLowerCase().indexOf(query) >= 0;
+    		});
+		});
 
 
 	};
@@ -100,5 +116,5 @@ var ViewModel = function(){
 	//Write: myViewModel.personName('Mary').personAge(50)
 
 
-
+*/
 
